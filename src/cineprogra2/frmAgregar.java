@@ -279,8 +279,12 @@ public class frmAgregar extends javax.swing.JFrame {
 
     private void btngeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngeneroActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID genero"));
-        String nombre =JOptionPane.showInputDialog("Ingrese el nombre del genero");
+        int id = cmbGenero.getItemCount()+1;
+        String nombre;
+        do{
+        nombre=JOptionPane.showInputDialog("Ingrese el nombre del genero");    
+        }while(nombre.isEmpty());
+        
         g.insertar(id, nombre);
         nombregeneros.addElement(nombre);
     }//GEN-LAST:event_btngeneroActionPerformed
@@ -291,17 +295,28 @@ public class frmAgregar extends javax.swing.JFrame {
 
     private void btnproductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproductorActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID productor"));
-        String nombre =JOptionPane.showInputDialog("Ingrese el nombre del productor");
+        int id = cmbProductor.getItemCount()+1;
+        String nombre;
+        do{
+        nombre=JOptionPane.showInputDialog("Ingrese el nombre del productor");    
+        }while(nombre.isEmpty());
+         
         p.insertar(id, nombre);
         mdlPrductores.addElement(nombre);
     }//GEN-LAST:event_btnproductorActionPerformed
 
     private void btndirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndirectorActionPerformed
         // TODO add your handling code here:
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID director"));
-        String nombre =JOptionPane.showInputDialog("Ingrese el nombre del director");
-        String apellidos =JOptionPane.showInputDialog("Ingrese el o los apellidos del director");
+        int id = cmbdirector.getItemCount()+1;
+        String nombre;String apellidos;
+          do{
+         nombre =JOptionPane.showInputDialog("Ingrese el nombre del director");    
+        }while(nombre.isEmpty());
+          do{
+        apellidos =JOptionPane.showInputDialog("Ingrese el o los apellidos del director");    
+        }while(apellidos.isEmpty());
+        
+        
         d.insertar(id, nombre,apellidos);
         mdlDirectores.addElement(nombre+" "+apellidos);
     }//GEN-LAST:event_btndirectorActionPerformed
