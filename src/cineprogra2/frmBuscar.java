@@ -5,10 +5,6 @@
  */
 package cineprogra2;
 
-/**
- *
- * @author TOBIAS
- */
 public class frmBuscar extends javax.swing.JFrame {
 
     /**
