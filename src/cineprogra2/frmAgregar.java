@@ -21,6 +21,7 @@ public class frmAgregar extends javax.swing.JFrame {
 
     DefaultListModel mdlLista= new DefaultListModel();
     ResultSet rstLista=null;
+    ResultSet rs;
     ResultSet rstdirectores=null;
     DefaultComboBoxModel nombregeneros = new DefaultComboBoxModel();
     ResultSet rstgenero=null; 
@@ -33,9 +34,12 @@ public class frmAgregar extends javax.swing.JFrame {
     
     public frmAgregar() throws SQLException {
         initComponents();
+        txtID.setEnabled(true);
         rstgenero = g.llenarGeneros();
         rstproductores= p.llenarProductores();
         rstdirectores= d.llenarDirectores();
+        
+        
         try {
             while (rstgenero.next()){
                 
@@ -101,6 +105,7 @@ public class frmAgregar extends javax.swing.JFrame {
         cmbdirector = new javax.swing.JComboBox<>();
         btndirector = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +141,12 @@ public class frmAgregar extends javax.swing.JFrame {
 
         jLabel4.setText("Duracion:");
 
+        txtDuracion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDuracionKeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Seleccione un genero:");
 
         btngenero.setText("Agregar genero");
@@ -170,6 +181,8 @@ public class frmAgregar extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("minutos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,14 +210,16 @@ public class frmAgregar extends javax.swing.JFrame {
                                 .addGap(31, 31, 31)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8))
                             .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbProductor, 0, 129, Short.MAX_VALUE)
-                                    .addComponent(cmbdirector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(60, 60, 60)
+                                    .addComponent(cmbdirector, 0, 171, Short.MAX_VALUE)
+                                    .addComponent(cmbProductor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btndirector)
                                     .addComponent(btnproductor)
@@ -212,7 +227,7 @@ public class frmAgregar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(173, 173, 173)
                         .addComponent(btnGuardar)))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +239,8 @@ public class frmAgregar extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -306,6 +322,15 @@ public class frmAgregar extends javax.swing.JFrame {
         if(txtTitulo.getText().isEmpty() ||txtAño.getText().isEmpty() || txtDuracion.getText().isEmpty() ||txtID.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
         }else{
+            int idP=Integer.parseInt(txtID.getText());
+            int idGenero=cmbGenero.getSelectedIndex()+1;
+            int idProductor= cmbProductor.getSelectedIndex()+1;
+            int idD=cmbdirector.getSelectedIndex()+1;
+            String titulo=txtTitulo.getText();
+            int anio=Integer.parseInt(txtAño.getText());
+            String duracion = txtDuracion.getText();
+            Pelicula p=new Pelicula();
+           p.insertarPeliCompleta(idP, titulo, anio, duracion, idD, idProductor, idGenero);
             Limpiar();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -335,6 +360,19 @@ public class frmAgregar extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtAñoKeyTyped
+
+    private void txtDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionKeyTyped
+        // TODO add your handling code here:
+        char tecla = evt.getKeyChar();
+        if(Character.isDigit(tecla)){
+            
+        }else{
+            evt.consume();
+        }
+        if(txtAño.getText().length()>9){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDuracionKeyTyped
 
     /**
      * @param args the command line arguments
@@ -390,6 +428,7 @@ public class frmAgregar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtAño;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtID;
