@@ -9,21 +9,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class frmBuscar extends javax.swing.JFrame {
 
+    DefaultComboBoxModel nombregeneros = new DefaultComboBoxModel();
     DefaultTableModel mdlTabla=new DefaultTableModel();
     ResultSet rstTabla=null;
+    ResultSet rstgenero=null;
+    Genero g= new Genero();
+    Pelicula a=new Pelicula();
     /**
      * Creates new form frmBuscar
      */
-    public frmBuscar() {
+    public frmBuscar() throws SQLException {
         initComponents();
+        rstgenero = g.llenarGeneros();
         rbID.setSelected(true);
         rbID.setEnabled(false);
         txtTitulo.setEnabled(false);
         txtID.requestFocus();
+        
+        try {
+            while (rstgenero.next()){
+                
+                nombregeneros.addElement(rstgenero.getString(2));
+            }
+            cmbGenero.setModel(nombregeneros);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cmbGenero.setEnabled(false);
         
     }
 
@@ -40,6 +59,9 @@ public class frmBuscar extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         rbID = new javax.swing.JRadioButton();
         rbTitulo = new javax.swing.JRadioButton();
@@ -47,9 +69,16 @@ public class frmBuscar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtTitulo = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        btnMostrartodo = new javax.swing.JButton();
+        rbGenero = new javax.swing.JRadioButton();
+        cmbGenero = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
+
+        jTable1.setModel(mdlTabla);
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,8 +108,24 @@ public class frmBuscar extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(mdlTabla);
-        jScrollPane1.setViewportView(jTable1);
+        btnMostrartodo.setText("Todas las peliculas");
+        btnMostrartodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrartodoActionPerformed(evt);
+            }
+        });
+
+        rbGenero.setText("Genero");
+        rbGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbGeneroActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Generos:");
+
+        jTable2.setModel(mdlTabla);
+        jScrollPane2.setViewportView(jTable2);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,29 +140,35 @@ public class frmBuscar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(rbID)
+                    .addComponent(rbTitulo)
+                    .addComponent(rbGenero))
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbID)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rbTitulo)
-                                .addGap(174, 174, 174)
-                                .addComponent(btnBuscar)))
-                        .addGap(211, 211, 211)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(23, 23, 23)
-                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMostrartodo)
+                        .addGap(28, 28, 28))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,21 +180,24 @@ public class frmBuscar extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(rbID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbTitulo)
+                            .addComponent(rbGenero)
+                            .addComponent(jLabel3)
+                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMostrartodo)
                             .addComponent(btnBuscar)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addComponent(jLabel4))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,22 +211,17 @@ public class frmBuscar extends javax.swing.JFrame {
     }
     private void rbIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIDActionPerformed
         // TODO add your handling code here:
-        if (rbID.isSelected()){
+        rbGenero.setEnabled(true);
+         cmbGenero.setEnabled(false);
             rbID.setEnabled(false);
             rbTitulo.setEnabled(true);
           rbTitulo.setSelected(false);
+         rbGenero.setSelected(false);
         txtTitulo.setEnabled(false);
         txtTitulo.setText("");
         txtID.setEnabled(true);
         txtID.requestFocus();  
-        }
-        else{
-                    rbID.setSelected(false);
-        txtID.setEnabled(false);
-        txtID.setText("");
-        txtTitulo.setEnabled(true);
-        txtTitulo.requestFocus();
-        }
+        
         
     }//GEN-LAST:event_rbIDActionPerformed
 
@@ -191,39 +240,121 @@ public class frmBuscar extends javax.swing.JFrame {
 
     private void rbTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTituloActionPerformed
         // TODO add your handling code here:
-        if (rbTitulo.isSelected()){
+        
          rbID.setSelected(false);
+         rbGenero.setSelected(false);
          rbID.setEnabled(true);
          rbTitulo.setEnabled(false);
+         rbGenero.setEnabled(true);
+         cmbGenero.setEnabled(false);
         txtID.setEnabled(false);
         txtID.setText("");
         txtTitulo.setEnabled(true);
         txtTitulo.requestFocus();   
-        }
-        else{
-             rbTitulo.setSelected(false);
-        txtTitulo.setEnabled(false);
-        txtTitulo.setText("");
-        txtID.setEnabled(true);
-        txtID.requestFocus(); 
-        }
+        
         
     }//GEN-LAST:event_rbTituloActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void btnMostrartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrartodoActionPerformed
         // TODO add your handling code here:
-        
-        mdlTabla.setColumnIdentifiers(new Object []{"Titulo","model","model","model","model","modelo","nombreModelo"});
+        LimpiarTabla();
+        mdlTabla.setColumnIdentifiers(new Object []{"ID","Titulo","Genero","Año","Duracion","Productor","Nombre director","Apellidos"});
         Pelicula a = new Pelicula();
         rstTabla=a.mostrarTodas();
         
             try {
                 while(rstTabla.next()){
-                    mdlTabla.addRow(new Object []{(rstTabla.getString(1)),(rstTabla.getString(2)),(rstTabla.getInt(3)),(rstTabla.getInt(4)),(rstTabla.getString(5)),(rstTabla.getString(6)),(rstTabla.getString(7))});
+                    mdlTabla.addRow(new Object []{(rstTabla.getInt(1)),(rstTabla.getString(2)),(rstTabla.getString(3)),(rstTabla.getInt(4)),(rstTabla.getInt(5)),(rstTabla.getString(6)),(rstTabla.getString(7)),(rstTabla.getString(8))});
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
             }
+        
+        
+        
+    }//GEN-LAST:event_btnMostrartodoActionPerformed
+
+    private void rbGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbGeneroActionPerformed
+        // TODO add your handling code here:
+        cmbGenero.setEnabled(true);
+        rbID.setSelected(false);
+         rbTitulo.setSelected(false);
+        txtID.setText("");
+        txtID.setEnabled(false);
+        txtTitulo.setText("");
+        txtTitulo.setEnabled(false);
+        rbID.setEnabled(true);
+        rbTitulo.setEnabled(true);
+        rbGenero.setEnabled(false);
+    }//GEN-LAST:event_rbGeneroActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        rstTabla=null;
+        LimpiarTabla();
+        if(rbID.isSelected()){
+        if(!(txtID.getText().isEmpty())){
+        
+            int id=Integer.parseInt(txtID.getText());
+            rstTabla=a.buscarporID(id);
+            
+            
+        mdlTabla.setColumnIdentifiers(new Object []{"ID","Titulo","Genero","Año","Duracion","Productor","Nombre director","Apellidos"});
+        
+            try {
+                while(rstTabla.next()){
+                    mdlTabla.addRow(new Object []{(rstTabla.getInt(1)),(rstTabla.getString(2)),(rstTabla.getString(3)),(rstTabla.getInt(4)),(rstTabla.getInt(5)),(rstTabla.getString(6)),(rstTabla.getString(7)),(rstTabla.getString(8))});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            txtID.setText("");
+            txtID.requestFocus();
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Debe ingresar el ID");
+        }    
+        }
+        
+        else if(rbTitulo.isSelected()){
+        if(!(txtTitulo.getText().isEmpty())){
+        
+            
+            rstTabla=a.buscarporTitulo("'"+txtTitulo.getText()+"'");
+            
+            
+        mdlTabla.setColumnIdentifiers(new Object []{"ID","Titulo","Genero","Año","Duracion","Productor","Nombre director","Apellidos"});
+        
+            try {
+                while(rstTabla.next()){
+                    mdlTabla.addRow(new Object []{(rstTabla.getInt(1)),(rstTabla.getString(2)),(rstTabla.getString(3)),(rstTabla.getInt(4)),(rstTabla.getInt(5)),(rstTabla.getString(6)),(rstTabla.getString(7)),(rstTabla.getString(8))});
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"No se encontró");
+                Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            txtTitulo.setText("");
+            txtTitulo.requestFocus();
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Debe ingresar el Titulo");
+        }    
+        }
+        else if(rbGenero.isSelected()){
+            rstTabla=a.buscarporGenero(cmbGenero.getSelectedIndex()+1);
+            mdlTabla.setColumnIdentifiers(new Object []{"ID","Titulo","Genero","Año","Duracion","Productor","Nombre director","Apellidos"});
+        
+            try {
+                while(rstTabla.next()){
+                    mdlTabla.addRow(new Object []{(rstTabla.getInt(1)),(rstTabla.getString(2)),(rstTabla.getString(3)),(rstTabla.getInt(4)),(rstTabla.getInt(5)),(rstTabla.getString(6)),(rstTabla.getString(7)),(rstTabla.getString(8))});
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"No se encontró");
+                Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         
         
         
@@ -259,22 +390,33 @@ public class frmBuscar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmBuscar().setVisible(true);
+                try {
+                    new frmBuscar().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnMostrartodo;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.JComboBox<String> cmbGenero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JRadioButton rbGenero;
     private javax.swing.JRadioButton rbID;
     private javax.swing.JRadioButton rbTitulo;
     private javax.swing.JTextField txtID;
