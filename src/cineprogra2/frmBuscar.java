@@ -5,13 +5,26 @@
  */
 package cineprogra2;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 public class frmBuscar extends javax.swing.JFrame {
 
+    DefaultTableModel mdlTabla=new DefaultTableModel();
+    ResultSet rstTabla=null;
     /**
      * Creates new form frmBuscar
      */
     public frmBuscar() {
         initComponents();
+        rbID.setSelected(true);
+        rbID.setEnabled(false);
+        txtTitulo.setEnabled(false);
+        txtID.requestFocus();
+        
     }
 
     /**
@@ -23,21 +36,198 @@ public class frmBuscar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        rbID = new javax.swing.JRadioButton();
+        rbTitulo = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Buscar por:");
+
+        rbID.setText("ID pelicula");
+        rbID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbIDActionPerformed(evt);
+            }
+        });
+
+        rbTitulo.setText("Titulo ");
+        rbTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTituloActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Ingrese el ID:");
+
+        jLabel3.setText("Ingrese el titulo:");
+
+        txtID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIDKeyTyped(evt);
+            }
+        });
+
+        jTable1.setModel(mdlTabla);
+        jScrollPane1.setViewportView(jTable1);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbID)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbTitulo)
+                                .addGap(174, 174, 174)
+                                .addComponent(btnBuscar)))
+                        .addGap(211, 211, 211)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(23, 23, 23)
+                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(rbID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbTitulo)
+                            .addComponent(btnBuscar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void LimpiarTabla(){
+        int filas=mdlTabla.getRowCount();
+        for (int i=0; i<filas;i++){
+            mdlTabla.removeRow(0);
+        }
+    }
+    private void rbIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIDActionPerformed
+        // TODO add your handling code here:
+        if (rbID.isSelected()){
+            rbID.setEnabled(false);
+            rbTitulo.setEnabled(true);
+          rbTitulo.setSelected(false);
+        txtTitulo.setEnabled(false);
+        txtTitulo.setText("");
+        txtID.setEnabled(true);
+        txtID.requestFocus();  
+        }
+        else{
+                    rbID.setSelected(false);
+        txtID.setEnabled(false);
+        txtID.setText("");
+        txtTitulo.setEnabled(true);
+        txtTitulo.requestFocus();
+        }
+        
+    }//GEN-LAST:event_rbIDActionPerformed
+
+    private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
+        // TODO add your handling code here:
+         char tecla = evt.getKeyChar();
+        if(Character.isDigit(tecla)){
+            
+        }else{
+            evt.consume();
+        }
+        if(txtID.getText().length()>2){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIDKeyTyped
+
+    private void rbTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTituloActionPerformed
+        // TODO add your handling code here:
+        if (rbTitulo.isSelected()){
+         rbID.setSelected(false);
+         rbID.setEnabled(true);
+         rbTitulo.setEnabled(false);
+        txtID.setEnabled(false);
+        txtID.setText("");
+        txtTitulo.setEnabled(true);
+        txtTitulo.requestFocus();   
+        }
+        else{
+             rbTitulo.setSelected(false);
+        txtTitulo.setEnabled(false);
+        txtTitulo.setText("");
+        txtID.setEnabled(true);
+        txtID.requestFocus(); 
+        }
+        
+    }//GEN-LAST:event_rbTituloActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        mdlTabla.setColumnIdentifiers(new Object []{"Titulo","model","model","model","model","modelo","nombreModelo"});
+        Pelicula a = new Pelicula();
+        rstTabla=a.mostrarTodas();
+        
+            try {
+                while(rstTabla.next()){
+                    mdlTabla.addRow(new Object []{(rstTabla.getString(1)),(rstTabla.getString(2)),(rstTabla.getInt(3)),(rstTabla.getInt(4)),(rstTabla.getString(5)),(rstTabla.getString(6)),(rstTabla.getString(7))});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -75,5 +265,19 @@ public class frmBuscar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JRadioButton rbID;
+    private javax.swing.JRadioButton rbTitulo;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
