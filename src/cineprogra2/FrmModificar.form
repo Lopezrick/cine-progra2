@@ -24,51 +24,78 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblId" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="lblId" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="txtID" min="-2" pref="138" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="txtId" min="-2" pref="138" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="lblTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblAño" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblDuracion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblGenero" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lblDirector" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cmbdirector" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="cmbGenero" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="lblProductor" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                      <Component id="txtTitulo" min="-2" pref="138" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtDuracion" alignment="1" min="-2" pref="138" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="txtAño" alignment="1" min="-2" pref="138" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="cmbProductor" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblTitulo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAño" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDuracion" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblGenero" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtDuracion" pref="138" max="32767" attributes="0"/>
-                              <Component id="txtAño" max="32767" attributes="0"/>
-                              <Component id="txtTitulo" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblProductor" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbGenero" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cmbProductor" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btnModificar" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnVer" min="-2" pref="82" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="lblDirector" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnCambiarTitulo" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCambiarAño" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCambiarDuracion" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbDirector" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRegresar" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnVer" alignment="1" min="-2" pref="82" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,45 +105,50 @@
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblId" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVer" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCambiarTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblAño" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAño" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCambiarAño" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblAño" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAño" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnModificar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="lblDuracion" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCambiarDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txtDuracion" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cmbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblGenero" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblDirector" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbDirector" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblProductor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbProductor" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblDirector" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbdirector" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblProductor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbProductor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
@@ -126,15 +158,21 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblId">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID:"/>
+        <Property name="text" type="java.lang.String" value="Ingrese el ID:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtId">
+    <Component class="javax.swing.JTextField" name="txtID">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIDKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnVer">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTitulo">
       <Properties>
@@ -157,23 +195,14 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtA&#xf1;o">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtA&#xf1;oKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDuracion">
-    </Component>
-    <Component class="javax.swing.JButton" name="btnCambiarTitulo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cambiar"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnCambiarA&#xf1;o">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cambiar"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnCambiarDuracion">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cambiar"/>
-      </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDuracionKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblGenero">
       <Properties>
@@ -183,12 +212,7 @@
     <Component class="javax.swing.JComboBox" name="cmbGenero">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -200,15 +224,10 @@
         <Property name="text" type="java.lang.String" value="Director:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmbDirector">
+    <Component class="javax.swing.JComboBox" name="cmbdirector">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -223,12 +242,7 @@
     <Component class="javax.swing.JComboBox" name="cmbProductor">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -239,6 +253,30 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Regresar"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnGuardar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Guardar cambios"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEliminar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar pelicula"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnModificar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

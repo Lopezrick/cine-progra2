@@ -381,7 +381,7 @@ public class frmAgregar extends javax.swing.JFrame {
         }else{
             evt.consume();
         }
-        if(txtAño.getText().length()>9){
+        if(txtDuracion.getText().length()>9){
             evt.consume();
         }
     }//GEN-LAST:event_txtDuracionKeyTyped

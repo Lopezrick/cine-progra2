@@ -313,7 +313,8 @@ public class frmBuscar extends javax.swing.JFrame {
         if(!(txtID.getText().isEmpty())){
         
             int id=Integer.parseInt(txtID.getText());
-            rstTabla=a.buscarporID(id);
+            if(id>0){
+             rstTabla=a.buscarporID(id);
             
             
         mdlTabla.setColumnIdentifiers(new Object []{"ID","Titulo","Genero","Año","Duracion","Productor","Nombre director","Apellidos"});
@@ -326,7 +327,12 @@ public class frmBuscar extends javax.swing.JFrame {
                 Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
             }
             txtID.setText("");
-            txtID.requestFocus();
+            txtID.requestFocus();   
+            }
+            else{
+             JOptionPane.showMessageDialog(null,"Debe ingresar un ID valido");   
+            }
+            
             
         }
         else{

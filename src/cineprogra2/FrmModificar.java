@@ -5,18 +5,99 @@
  */
 package cineprogra2;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ella no te ama;
  */
 public class FrmModificar extends javax.swing.JFrame {
 
+    ResultSet rstdirectores=null;
+    DefaultComboBoxModel nombregeneros = new DefaultComboBoxModel();
+    ResultSet rstgenero=null; 
+    DefaultComboBoxModel mdlDirectores = new DefaultComboBoxModel();
+    ResultSet rstproductores=null;
+    DefaultComboBoxModel mdlPrductores=new DefaultComboBoxModel();
+    Genero g= new Genero();
+    Productores p = new Productores();
+    Directores d= new Directores();
+    ResultSet rstMostrar=null;
+    Pelicula b=new Pelicula();
+    int id;
+    
     /**
      * Creates new form FrmModificar
      */
     public FrmModificar() {
         initComponents();
+        btnGuardar.setEnabled(false);
+        Bloquear();
+        rstgenero = g.llenarGeneros();
+        rstproductores= p.llenarProductores();
+        rstdirectores= d.llenarDirectores();
         
+        
+        try {
+            while (rstgenero.next()){
+                
+                nombregeneros.addElement(rstgenero.getString(2));
+            }
+            cmbGenero.setModel(nombregeneros);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            while (rstproductores.next()){
+                
+                mdlPrductores.addElement(rstproductores.getString(2));
+            }
+            cmbProductor.setModel(mdlPrductores);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+        while (rstdirectores.next()){
+                
+                mdlDirectores.addElement(rstdirectores.getString(2)+" "+rstdirectores.getString(3));
+            }
+            cmbdirector.setModel(mdlDirectores);
+            } catch (SQLException ex) {
+            Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    private void Limpiar() {
+       txtAño.setText("");
+       txtDuracion.setText("");
+       
+       txtTitulo.setText("");
+       
+    }
+    private void Bloquear() {
+       txtAño.setEnabled(false);
+       txtDuracion.setEnabled(false);
+       txtID.setEnabled(true);
+       txtTitulo.setEnabled(false);
+       cmbGenero.setEnabled(false);
+       cmbProductor.setEnabled(false);
+       cmbdirector.setEnabled(false);
+    }
+    private void Desbloquear() {
+       txtAño.setEnabled(true);
+       txtDuracion.setEnabled(true);
+       txtID.setEnabled(false);
+       txtTitulo.setEnabled(true);
+       cmbGenero.setEnabled(true);
+       cmbProductor.setEnabled(true);
+       cmbdirector.setEnabled(true);
     }
 
     /**
@@ -29,7 +110,7 @@ public class FrmModificar extends javax.swing.JFrame {
     private void initComponents() {
 
         lblId = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         btnVer = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         lblAño = new javax.swing.JLabel();
@@ -37,22 +118,33 @@ public class FrmModificar extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JTextField();
         txtAño = new javax.swing.JTextField();
         txtDuracion = new javax.swing.JTextField();
-        btnCambiarTitulo = new javax.swing.JButton();
-        btnCambiarAño = new javax.swing.JButton();
-        btnCambiarDuracion = new javax.swing.JButton();
         lblGenero = new javax.swing.JLabel();
         cmbGenero = new javax.swing.JComboBox<>();
         lblDirector = new javax.swing.JLabel();
-        cmbDirector = new javax.swing.JComboBox<>();
+        cmbdirector = new javax.swing.JComboBox<>();
         lblProductor = new javax.swing.JLabel();
         cmbProductor = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblId.setText("ID:");
+        lblId.setText("Ingrese el ID:");
+
+        txtID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIDKeyTyped(evt);
+            }
+        });
 
         btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         lblTitulo.setText("Titulo:");
 
@@ -66,67 +158,104 @@ public class FrmModificar extends javax.swing.JFrame {
             }
         });
 
-        btnCambiarTitulo.setText("Cambiar");
+        txtAño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAñoKeyTyped(evt);
+            }
+        });
 
-        btnCambiarAño.setText("Cambiar");
-
-        btnCambiarDuracion.setText("Cambiar");
+        txtDuracion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDuracionKeyTyped(evt);
+            }
+        });
 
         lblGenero.setText("Genero:");
 
-        cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblDirector.setText("Director:");
-
-        cmbDirector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblProductor.setText("Productor:");
 
-        cmbProductor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnRegresar.setText("Regresar");
+
+        btnGuardar.setText("Guardar cambios");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar pelicula");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addComponent(lblId)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo)
-                            .addComponent(lblAño)
-                            .addComponent(lblDuracion)
-                            .addComponent(lblGenero))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                                .addComponent(txtAño)
-                                .addComponent(txtTitulo))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(32, 32, 32)
+                                .addComponent(btnEliminar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblProductor)
-                                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblDirector)
-                .addGap(4, 4, 4)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblTitulo)
+                                        .addComponent(lblAño)
+                                        .addComponent(lblDuracion)
+                                        .addComponent(lblGenero))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblDirector)
+                                        .addGap(7, 7, 7)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbdirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblProductor))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(65, 65, 65)
+                                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDuracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtAño, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCambiarTitulo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCambiarAño, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCambiarDuracion, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbDirector, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(btnRegresar))
+                            .addComponent(cmbProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnModificar)
+                            .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,37 +263,41 @@ public class FrmModificar extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVer))
-                .addGap(21, 21, 21)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo)
-                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCambiarTitulo))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAño)
-                    .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCambiarAño))
-                .addGap(22, 22, 22)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAño)
+                            .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificar)
+                        .addGap(16, 16, 16)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDuracion)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCambiarDuracion)))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblGenero))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblDirector)
-                        .addComponent(cmbDirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGenero)
+                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProductor)
+                    .addComponent(cmbProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDirector)
+                    .addComponent(cmbdirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblProductor)
-                    .addComponent(cmbProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegresar))
+                    .addComponent(btnRegresar)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnEliminar))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -174,6 +307,123 @@ public class FrmModificar extends javax.swing.JFrame {
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTituloActionPerformed
+
+    private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
+        // TODO add your handling code here:
+         char tecla = evt.getKeyChar();
+        if(Character.isDigit(tecla)){
+            
+        }else{
+            evt.consume();
+        }
+        if(txtID.getText().length()>2){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIDKeyTyped
+
+    private void txtAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAñoKeyTyped
+        // TODO add your handling code here:
+          char tecla = evt.getKeyChar();
+        if(Character.isDigit(tecla)){
+            
+        }else{
+            evt.consume();
+        }
+        if(txtAño.getText().length()>3){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAñoKeyTyped
+
+    private void txtDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionKeyTyped
+        // TODO add your handling code here:
+        char tecla = evt.getKeyChar();
+        if(Character.isDigit(tecla)){
+            
+        }else{
+            evt.consume();
+        }
+        if(txtDuracion.getText().length()>9){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDuracionKeyTyped
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        // TODO add your handling code here:
+        Limpiar();
+        if(txtID.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null,"Debe ingresar el ID de alguna pelicula");   
+        }
+        else{
+            int a=Integer.parseInt(txtID.getText());
+            
+            if(a>0){
+                rstMostrar=b.buscarporID(a);
+                id=a;
+            try {
+                while(rstMostrar.next()){
+                    txtTitulo.setText(rstMostrar.getString(2));
+                   txtAño.setText(""+rstMostrar.getInt(4));
+                    txtDuracion.setText(""+rstMostrar.getInt(5));
+                    cmbProductor.setSelectedItem(rstMostrar.getString(6));
+                    cmbGenero.setSelectedItem(rstMostrar.getString(3));
+                    cmbdirector.setSelectedItem(rstMostrar.getString(7)+" "+rstMostrar.getString(8));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            }
+            else{
+             JOptionPane.showMessageDialog(null,"Debe ingresar un ID valido");   
+            }
+            
+        }
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if(txtTitulo.getText().isEmpty()){
+            
+        }
+        else{
+        Desbloquear(); 
+        btnGuardar.setEnabled(true);
+        txtID.setText(""+id);
+        }
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        if(txtTitulo.getText().isEmpty()){
+            
+        }
+        else{
+        Bloquear();    
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if(txtTitulo.getText().isEmpty()){
+            
+        }
+        else{
+            Pelicula a = new Pelicula();
+            PeliculasXdirectores b = new PeliculasXdirectores();
+            PeliculasXproductores c = new PeliculasXproductores();
+            PeliculasXgenero d = new PeliculasXgenero();
+            Descripcionpelicula e= new Descripcionpelicula();
+           
+            d.eliminar(id);
+            c.eliminar(id);
+            b.Eliminar(id);
+             e.eliminar(id);
+            a.eliminar(id);
+            Limpiar();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,14 +461,14 @@ public class FrmModificar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCambiarAño;
-    private javax.swing.JButton btnCambiarDuracion;
-    private javax.swing.JButton btnCambiarTitulo;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVer;
-    private javax.swing.JComboBox<String> cmbDirector;
     private javax.swing.JComboBox<String> cmbGenero;
     private javax.swing.JComboBox<String> cmbProductor;
+    private javax.swing.JComboBox<String> cmbdirector;
     private javax.swing.JLabel lblAño;
     private javax.swing.JLabel lblDirector;
     private javax.swing.JLabel lblDuracion;
@@ -228,7 +478,7 @@ public class FrmModificar extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtAño;
     private javax.swing.JTextField txtDuracion;
-    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

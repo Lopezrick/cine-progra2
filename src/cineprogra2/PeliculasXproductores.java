@@ -10,5 +10,11 @@ package cineprogra2;
  * @author Ella no te ama;
  */
 public class PeliculasXproductores {
-    
+    Conexion cn;
+    public void insertar(int idP, int idProductor){
+        cn.UID("INSERT INTO peliculasxproductores(idP,idProductora) VALUES (' " + idP + " ',' "+idProductor+"')");
+    }
+    public void eliminar(int codigo) {
+        cn.UID("DELETE FROM peliculasxgenero WHERE idP='" + codigo + "'");
+    }
 }
