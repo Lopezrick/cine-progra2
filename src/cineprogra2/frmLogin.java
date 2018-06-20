@@ -5,6 +5,7 @@
  */
 package cineprogra2;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ public class frmLogin extends javax.swing.JFrame {
         txtContrasenia = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
         btnRegistro = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,7 +63,7 @@ public class frmLogin extends javax.swing.JFrame {
                 btnIngresarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 207, -1, -1));
+        getContentPane().add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         btnRegistro.setText("Registrarse");
         btnRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +71,12 @@ public class frmLogin extends javax.swing.JFrame {
                 btnRegistroActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 266, 100, -1));
+        getContentPane().add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 100, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("O");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/loginjpg.jpg"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
@@ -79,52 +86,43 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         // TODO add your handling code here:
-        if (txtUsuario.getText().isEmpty() || txtContrasenia.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
-        } else {
-            
-            String Usuario = txtUsuario.getText();
-            String Contrasenia = txtContrasenia.getText();
-            RegistroUsuarios R = new RegistroUsuarios();
-            R.Registro(Usuario, Contrasenia);
-            txtContrasenia.setText("");
-            txtUsuario.setText("");
-        }
+        frmRegistro Rx = new frmRegistro();
+        this.dispose();
+        Rx.setVisible(true);
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        if ((txtUsuario.getText()).equals("ADMIN")) {
-            
-            if ((txtContrasenia.getText()).equals("cinepolis")) {
-                try {
-                    JOptionPane.showMessageDialog(null, "Te haz logeado correctamente");
-                    frmAgregar agre = new frmAgregar();
-                    agre.setVisible(true);
-                    this.dispose();
-                } catch (SQLException ex) {
-                    Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+        String Usuario = txtUsuario.getText();
+        String Contra = txtContrasenia.getText();
+        boolean control = false;
+
+        RegistroUsuarios rg = new RegistroUsuarios();
+
+        ResultSet rs = rg.ObtenerContra(Usuario);
+
+        try {
+            while (rs.next()) {
+                String contra = rs.getString("Password");
+                if (Contra.equals(contra)) {
+                    control = true;
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Contrasenia Incorrecta");
-                txtContrasenia.setText("");
-                txtContrasenia.requestFocus();
-                
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuario Incorrecto");
-            txtUsuario.setText("");
-            txtUsuario.requestFocus();
-            if ((txtContrasenia.getText()).equals("123ABC")) {
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Contrasenia Incorrecta");
-                txtContrasenia.setText("");
-                txtUsuario.setText("");
-                txtUsuario.requestFocus();
-            }
-            
+        } catch (Exception e) {
         }
+
+        if (control) {
+            try {
+                JOptionPane.showMessageDialog(null, "Te haz logueado ");
+                this.dispose();
+                frmAgregar ag = new frmAgregar();
+                ag.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
@@ -168,6 +166,7 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
