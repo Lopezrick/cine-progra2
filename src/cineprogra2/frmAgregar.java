@@ -419,12 +419,15 @@ public class frmAgregar extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new frmAgregar().setVisible(true);
+                    frmLogin log = new frmLogin();
+                    log.setVisible(true);
+                    new frmAgregar().setVisible(false);
                 } catch (SQLException ex) {
                     Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
                 }
