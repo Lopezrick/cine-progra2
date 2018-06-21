@@ -416,16 +416,6 @@ public class FrmModificar extends javax.swing.JFrame {
         PeliculasXdirectores c =  new PeliculasXdirectores();
         PeliculasXgenero d = new PeliculasXgenero();
         PeliculasXproductores e = new PeliculasXproductores();
-        int anio= Integer.parseInt(txtAño.getText());
-        int duracion= Integer.parseInt(txtAño.getText());
-        int idGenero= cmbGenero.getSelectedIndex()+1;
-        int idD=cmbdirector.getSelectedIndex()+1;
-        int idPro=cmbProductor.getSelectedIndex()+1;
-        a.Modificar(id, txtTitulo.getText());
-        b.Modificar(id, anio, duracion);
-        c.Modificar(id, idD);
-        d.Modificar(id, idGenero);
-        e.Modificar(id, idPro);
         Desbloquear();
         Limpiar();
             }
