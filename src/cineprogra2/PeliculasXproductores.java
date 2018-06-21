@@ -15,6 +15,6 @@ public class PeliculasXproductores {
         cn.UID("INSERT INTO peliculasxproductores(idP,idProductora) VALUES (' " + idP + " ',' "+idProductor+"')");
     }
     public void eliminar(int codigo) {
-        cn.UID("DELETE FROM peliculasxgenero WHERE idP='" + codigo + "'");
+        cn.UID("DELETE FROM peliculasxproductores WHERE idP=" + codigo + "");
     }
 }

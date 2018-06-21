@@ -12,6 +12,6 @@ package cineprogra2;
 public class PeliculasXdirectores {
     Conexion cn= new Conexion();
     public void Eliminar(int idP){
-        cn.UID("delete from [peliculasxdirectores] where id='"+idP+"'");
+        cn.UID("delete from [peliculasxdirectores] where id="+idP+"");
     }
 }

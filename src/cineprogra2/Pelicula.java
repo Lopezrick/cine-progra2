@@ -26,7 +26,11 @@ public class Pelicula {
       public ResultSet buscarporGenero(int idGenero){
         return cn.getValores("SELECT peliculas.idP, peliculas.titulo, genero.descripcion, descripcionpelicula.anio, descripcionpelicula.duracion, productores.descripcion, directores.nombre, directores.apellidos FROM productores INNER JOIN ((((peliculas INNER JOIN descripcionpelicula ON peliculas.idP = descripcionpelicula.idP) INNER JOIN (directores INNER JOIN peliculasxdirectores ON directores.idD = peliculasxdirectores.idD) ON peliculas.idP = peliculasxdirectores.idP) INNER JOIN (genero INNER JOIN peliculasxgenero ON genero.idGenero = peliculasxgenero.idGenero) ON peliculas.idP = peliculasxgenero.idP) INNER JOIN peliculasxproductores ON peliculas.idP = peliculasxproductores.idP) ON productores.idProductora = peliculasxproductores.idProductora WHERE (((genero.idGenero)="+idGenero+"))"); 
     } 
-       public void eliminar(int codigo) {
-        cn.UID("DELETE FROM peliculas WHERE idP='" + codigo + "'");
+       public void eliminar(int idP) {
+            cn.UID("DELETE FROM descripcionpelicula WHERE idP=" + idP + "");
+            cn.UID("DELETE FROM peliculasxgenero WHERE idP=" + idP + "");
+          cn.UID("delete from peliculasxdirectores where idP="+idP+""); 
+           cn.UID("DELETE FROM peliculasxdirectores WHERE idP=" + idP + "");
+        cn.UID("delete from peliculas where idP=" + idP + "");
     }
 }

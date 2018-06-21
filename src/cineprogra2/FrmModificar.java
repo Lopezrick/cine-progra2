@@ -411,15 +411,8 @@ public class FrmModificar extends javax.swing.JFrame {
         }
         else{
             Pelicula a = new Pelicula();
-            PeliculasXdirectores b = new PeliculasXdirectores();
-            PeliculasXproductores c = new PeliculasXproductores();
-            PeliculasXgenero d = new PeliculasXgenero();
-            Descripcionpelicula e= new Descripcionpelicula();
-           
-            d.eliminar(id);
-            c.eliminar(id);
-            b.Eliminar(id);
-             e.eliminar(id);
+            
+            
             a.eliminar(id);
             Limpiar();
         }
