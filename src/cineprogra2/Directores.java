@@ -12,11 +12,18 @@ import java.sql.ResultSet;
  * @author Ella no te ama;
  */
 public class Directores {
+
     Conexion cn = new Conexion();
-   public ResultSet llenarDirectores(){
-        return cn.getValores("SELECT * from directores"); 
-    }       
-    public void insertar(int id, String nombre, String apellidos){
-        cn.UID("INSERT INTO directores(idD,nombre,apellidos) VALUES (' " + id + " ',' "+nombre+"',' " + apellidos + " ')");
+
+    public ResultSet llenarDirectores() {
+        return cn.getValores("SELECT * from directores");
+    }
+
+    public void insertar(int id, String nombre, String apellidos) {
+        cn.UID("INSERT INTO directores(idD,nombre,apellidos) VALUES (' " + id + " ',' " + nombre + "',' " + apellidos + " ')");
+    }
+
+    public ResultSet obtenerCod(String nom, String ape) {
+        return cn.getValores("select idD from directores where nombre='" + nom + "' and apellidos='" + ape + "' ;");
     }
 }

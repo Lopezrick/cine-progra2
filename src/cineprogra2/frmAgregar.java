@@ -34,7 +34,6 @@ public class frmAgregar extends javax.swing.JFrame {
     
     public frmAgregar() throws SQLException {
         initComponents();
-        this.setLocationRelativeTo(null);
         txtID.setEnabled(true);
         rstgenero = g.llenarGeneros();
         rstproductores= p.llenarProductores();

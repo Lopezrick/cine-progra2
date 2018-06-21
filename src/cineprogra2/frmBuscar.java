@@ -26,7 +26,6 @@ public class frmBuscar extends javax.swing.JFrame {
      */
     public frmBuscar() throws SQLException {
         initComponents();
-        this.setLocationRelativeTo(null);
         rstgenero = g.llenarGeneros();
         rbID.setSelected(true);
         rbID.setEnabled(false);

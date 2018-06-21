@@ -13,7 +13,7 @@ public class Conexion {
     
     private String url = "jdbc:mysql://127.0.0.1:3306/cine";
     private String login = "root"; //Administrador de MySQL
-    private String password = "database";
+    private String password = "programacion2";
     private Connection cnx = null;
     private Statement sttm = null;
     private ResultSet rst = null;

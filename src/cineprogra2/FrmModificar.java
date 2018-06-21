@@ -18,87 +18,88 @@ import javax.swing.JOptionPane;
  */
 public class FrmModificar extends javax.swing.JFrame {
 
-    ResultSet rstdirectores=null;
+    ResultSet rstdirectores = null;
     DefaultComboBoxModel nombregeneros = new DefaultComboBoxModel();
-    ResultSet rstgenero=null; 
+    ResultSet rstgenero = null;
     DefaultComboBoxModel mdlDirectores = new DefaultComboBoxModel();
-    ResultSet rstproductores=null;
-    DefaultComboBoxModel mdlPrductores=new DefaultComboBoxModel();
-    Genero g= new Genero();
+    ResultSet rstproductores = null;
+    DefaultComboBoxModel mdlPrductores = new DefaultComboBoxModel();
+    Genero g = new Genero();
     Productores p = new Productores();
-    Directores d= new Directores();
-    ResultSet rstMostrar=null;
-    Pelicula b=new Pelicula();
+    Directores d = new Directores();
+    ResultSet rstMostrar = null;
+    Pelicula b = new Pelicula();
     int id;
-    
+
     /**
      * Creates new form FrmModificar
      */
     public FrmModificar() {
         initComponents();
-        this.setLocationRelativeTo(null);
         btnGuardar.setEnabled(false);
         Bloquear();
         rstgenero = g.llenarGeneros();
-        rstproductores= p.llenarProductores();
-        rstdirectores= d.llenarDirectores();
-        
-        
+        rstproductores = p.llenarProductores();
+        rstdirectores = d.llenarDirectores();
+
         try {
-            while (rstgenero.next()){
-                
+            while (rstgenero.next()) {
+
                 nombregeneros.addElement(rstgenero.getString(2));
             }
             cmbGenero.setModel(nombregeneros);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            while (rstproductores.next()){
-                
+            while (rstproductores.next()) {
+
                 mdlPrductores.addElement(rstproductores.getString(2));
             }
             cmbProductor.setModel(mdlPrductores);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-        while (rstdirectores.next()){
-                
-                mdlDirectores.addElement(rstdirectores.getString(2)+" "+rstdirectores.getString(3));
+            while (rstdirectores.next()) {
+
+                mdlDirectores.addElement(rstdirectores.getString(2) + " " + rstdirectores.getString(3));
             }
             cmbdirector.setModel(mdlDirectores);
-            } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(frmAgregar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
+
     private void Limpiar() {
-       txtAño.setText("");
-       txtDuracion.setText("");
-       
-       txtTitulo.setText("");
-       
+        txtAño.setText("");
+        txtDuracion.setText("");
+
+        txtTitulo.setText("");
+
     }
+
     private void Bloquear() {
-       txtAño.setEnabled(false);
-       txtDuracion.setEnabled(false);
-       txtID.setEnabled(true);
-       txtTitulo.setEnabled(false);
-       cmbGenero.setEnabled(false);
-       cmbProductor.setEnabled(false);
-       cmbdirector.setEnabled(false);
+        txtAño.setEnabled(false);
+        txtDuracion.setEnabled(false);
+        txtID.setEnabled(true);
+        txtTitulo.setEnabled(false);
+        cmbGenero.setEnabled(false);
+        cmbProductor.setEnabled(false);
+        cmbdirector.setEnabled(false);
     }
+
     private void Desbloquear() {
-       txtAño.setEnabled(true);
-       txtDuracion.setEnabled(true);
-       txtID.setEnabled(false);
-       txtTitulo.setEnabled(true);
-       cmbGenero.setEnabled(true);
-       cmbProductor.setEnabled(true);
-       cmbdirector.setEnabled(true);
+        txtAño.setEnabled(true);
+        txtDuracion.setEnabled(true);
+        txtID.setEnabled(false);
+        txtTitulo.setEnabled(true);
+        cmbGenero.setEnabled(true);
+        cmbProductor.setEnabled(true);
+        cmbdirector.setEnabled(true);
     }
 
     /**
@@ -316,26 +317,26 @@ public class FrmModificar extends javax.swing.JFrame {
 
     private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
         // TODO add your handling code here:
-         char tecla = evt.getKeyChar();
-        if(Character.isDigit(tecla)){
-            
-        }else{
+        char tecla = evt.getKeyChar();
+        if (Character.isDigit(tecla)) {
+
+        } else {
             evt.consume();
         }
-        if(txtID.getText().length()>2){
+        if (txtID.getText().length() > 2) {
             evt.consume();
         }
     }//GEN-LAST:event_txtIDKeyTyped
 
     private void txtAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAñoKeyTyped
         // TODO add your handling code here:
-          char tecla = evt.getKeyChar();
-        if(Character.isDigit(tecla)){
-            
-        }else{
+        char tecla = evt.getKeyChar();
+        if (Character.isDigit(tecla)) {
+
+        } else {
             evt.consume();
         }
-        if(txtAño.getText().length()>3){
+        if (txtAño.getText().length() > 3) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAñoKeyTyped
@@ -343,12 +344,12 @@ public class FrmModificar extends javax.swing.JFrame {
     private void txtDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionKeyTyped
         // TODO add your handling code here:
         char tecla = evt.getKeyChar();
-        if(Character.isDigit(tecla)){
-            
-        }else{
+        if (Character.isDigit(tecla)) {
+
+        } else {
             evt.consume();
         }
-        if(txtDuracion.getText().length()>9){
+        if (txtDuracion.getText().length() > 9) {
             evt.consume();
         }
     }//GEN-LAST:event_txtDuracionKeyTyped
@@ -356,82 +357,78 @@ public class FrmModificar extends javax.swing.JFrame {
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
         Limpiar();
-        if(txtID.getText().isEmpty()){
-         JOptionPane.showMessageDialog(null,"Debe ingresar el ID de alguna pelicula");   
-        }
-        else{
-            int a=Integer.parseInt(txtID.getText());
-            
-            if(a>0){
-                rstMostrar=b.buscarporID(a);
-                id=a;
-            try {
-                while(rstMostrar.next()){
-                    txtTitulo.setText(rstMostrar.getString(2));
-                   txtAño.setText(""+rstMostrar.getInt(4));
-                    txtDuracion.setText(""+rstMostrar.getInt(5));
-                    cmbProductor.setSelectedItem(rstMostrar.getString(6));
-                    cmbGenero.setSelectedItem(rstMostrar.getString(3));
-                    cmbdirector.setSelectedItem(rstMostrar.getString(7)+" "+rstMostrar.getString(8));
+        if (txtID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el ID de alguna pelicula");
+        } else {
+            int a = Integer.parseInt(txtID.getText());
+
+            if (a > 0) {
+                rstMostrar = b.buscarporID(a);
+                id = a;
+                try {
+                    while (rstMostrar.next()) {
+                        txtTitulo.setText(rstMostrar.getString(2));
+                        txtAño.setText("" + rstMostrar.getInt(4));
+                        txtDuracion.setText("" + rstMostrar.getInt(5));
+                        cmbProductor.setSelectedItem(rstMostrar.getString(6));
+                        cmbGenero.setSelectedItem(rstMostrar.getString(3));
+                        cmbdirector.setSelectedItem(rstMostrar.getString(7) + " " + rstMostrar.getString(8));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(frmBuscar.class.getName()).log(Level.SEVERE, null, ex);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un ID valido");
             }
-                
-            }
-            else{
-             JOptionPane.showMessageDialog(null,"Debe ingresar un ID valido");   
-            }
-            
+
         }
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        if(txtTitulo.getText().isEmpty()){
-            
+
+        if (txtTitulo.getText().isEmpty()) {
+            try {
+                new Pelicula().Modificar(Integer.parseInt(txtID.getText()), txtTitulo.getText(), Integer.parseInt(txtAño.getText()), Integer.parseInt(txtDuracion.getText()), cmbGenero.getSelectedIndex() + 1, cmbdirector.getSelectedIndex() + 1, cmbProductor.getSelectedIndex() + 1);
+            } catch (Exception e) {
+            }
+        } else {
+            Desbloquear();
+            btnGuardar.setEnabled(true);
+            txtID.setText("" + id);
         }
-        else{
-        Desbloquear(); 
-        btnGuardar.setEnabled(true);
-        txtID.setText(""+id);
-        }
-        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        
-        if(txtTitulo.getText().isEmpty()){
-            
-        }
-        else{
-            if(txtAño.getText().isEmpty()||txtDuracion.getText().isEmpty()||txtTitulo.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
+
+        if (txtTitulo.getText().isEmpty()) {
+
+        } else {
+            if (txtAño.getText().isEmpty() || txtDuracion.getText().isEmpty() || txtTitulo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            } else {
+                Bloquear();
+                Pelicula a = new Pelicula();
+                Descripcionpelicula b = new Descripcionpelicula();
+                PeliculasXdirectores c = new PeliculasXdirectores();
+                PeliculasXgenero d = new PeliculasXgenero();
+                PeliculasXproductores e = new PeliculasXproductores();
+                new Pelicula().Modificar(Integer.parseInt(txtID.getText()), txtTitulo.getText(), Integer.parseInt(txtAño.getText()), Integer.parseInt(txtDuracion.getText()), cmbGenero.getSelectedIndex() + 1, cmbdirector.getSelectedIndex() + 1, cmbProductor.getSelectedIndex() + 1);
+                Desbloquear();
+                Limpiar();
             }
-            else{
-               Bloquear();
-        Pelicula a=new Pelicula();
-        Descripcionpelicula b= new Descripcionpelicula();
-        PeliculasXdirectores c =  new PeliculasXdirectores();
-        PeliculasXgenero d = new PeliculasXgenero();
-        PeliculasXproductores e = new PeliculasXproductores();
-        Desbloquear();
-        Limpiar();
-            }
-        
+
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if(txtTitulo.getText().isEmpty()){
-            
-        }
-        else{
+        if (txtTitulo.getText().isEmpty()) {
+
+        } else {
             Pelicula a = new Pelicula();
-            
-            
+
             a.eliminar(id);
             Limpiar();
         }

@@ -12,11 +12,18 @@ import java.sql.ResultSet;
  * @author Ella no te ama;
  */
 public class Genero {
-    Conexion cn= new Conexion();
-    public ResultSet llenarGeneros(){
-        return cn.getValores("SELECT * from genero"); 
+    
+    Conexion cn = new Conexion();
+    
+    public ResultSet llenarGeneros() {
+        return cn.getValores("SELECT * from genero");
     }
-    public void insertar(int id, String nombre){
-        cn.UID("INSERT INTO genero(idGenero,descripcion) VALUES (' " + id + " ',' "+nombre+"')");
+    
+    public void insertar(int id, String nombre) {
+        cn.UID("INSERT INTO genero(idGenero,descripcion) VALUES (' " + id + " ',' " + nombre + "')");
+    }
+    
+    public ResultSet obtenerCod(String nom) {
+        return cn.getValores("select idGenero from genero where descripcion='" + nom + "' ;");
     }
 }
