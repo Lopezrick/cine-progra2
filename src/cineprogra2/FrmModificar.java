@@ -36,6 +36,7 @@ public class FrmModificar extends javax.swing.JFrame {
      */
     public FrmModificar() {
         initComponents();
+        this.setLocationRelativeTo(null);
         btnGuardar.setEnabled(false);
         Bloquear();
         rstgenero = g.llenarGeneros();
