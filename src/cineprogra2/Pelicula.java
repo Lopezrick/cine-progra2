@@ -17,6 +17,7 @@ public class Pelicula {
     public ResultSet mostrarTodas(){
         return cn.getValores("SELECT peliculas.idP, peliculas.titulo, genero.descripcion, descripcionpelicula.anio, descripcionpelicula.duracion, productores.descripcion, directores.nombre, directores.apellidos FROM productores INNER JOIN ((((peliculas INNER JOIN descripcionpelicula ON peliculas.idP = descripcionpelicula.idP) INNER JOIN (directores INNER JOIN peliculasxdirectores ON directores.idD = peliculasxdirectores.idD) ON peliculas.idP = peliculasxdirectores.idP) INNER JOIN (genero INNER JOIN peliculasxgenero ON genero.idGenero = peliculasxgenero.idGenero) ON peliculas.idP = peliculasxgenero.idP) INNER JOIN peliculasxproductores ON peliculas.idP = peliculasxproductores.idP) ON productores.idProductora = peliculasxproductores.idProductora"); 
     }
+    
     public ResultSet buscarporID(int id){
         return cn.getValores("SELECT peliculas.idP, peliculas.titulo, genero.descripcion, descripcionpelicula.anio, descripcionpelicula.duracion, productores.descripcion, directores.nombre, directores.apellidos FROM productores INNER JOIN ((((peliculas INNER JOIN descripcionpelicula ON peliculas.idP = descripcionpelicula.idP) INNER JOIN (directores INNER JOIN peliculasxdirectores ON directores.idD = peliculasxdirectores.idD) ON peliculas.idP = peliculasxdirectores.idP) INNER JOIN (genero INNER JOIN peliculasxgenero ON genero.idGenero = peliculasxgenero.idGenero) ON peliculas.idP = peliculasxgenero.idP) INNER JOIN peliculasxproductores ON peliculas.idP = peliculasxproductores.idP) ON productores.idProductora = peliculasxproductores.idProductora WHERE (((peliculas.idP)="+id+"))"); 
     }
@@ -32,5 +33,8 @@ public class Pelicula {
           cn.UID("delete from peliculasxdirectores where idP="+idP+""); 
            cn.UID("DELETE FROM peliculasxdirectores WHERE idP=" + idP + "");
         cn.UID("delete from peliculas where idP=" + idP + "");
+    }
+         public void Modificar(int idP, String titulo) {
+           cn.UID("UPDATE peliculas SET titulo='" + titulo + "' WHERE idP='" + idP + "'");
     }
 }

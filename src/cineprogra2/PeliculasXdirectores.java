@@ -14,4 +14,7 @@ public class PeliculasXdirectores {
     public void Eliminar(int idP){
         cn.UID("delete from [peliculasxdirectores] where id="+idP+"");
     }
+    public void Modificar(int idP, int idD) {
+           cn.UID("UPDATE peliculasxdirectores SET idD=" + idD + " WHERE idP=" + idP + "");
+    }
 }

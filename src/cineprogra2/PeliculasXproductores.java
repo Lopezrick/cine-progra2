@@ -17,4 +17,7 @@ public class PeliculasXproductores {
     public void eliminar(int codigo) {
         cn.UID("DELETE FROM peliculasxproductores WHERE idP=" + codigo + "");
     }
+     public void Modificar(int idP, int idPro) {
+           cn.UID("UPDATE peliculasxproductores SET idProductora=" + idPro + " WHERE idP=" + idP + "");
+    }
 }

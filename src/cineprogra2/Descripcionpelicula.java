@@ -17,4 +17,8 @@ public class Descripcionpelicula {
     public void eliminar(int codigo) {
         cn.UID("DELETE FROM descripcionpelicula WHERE idP=" + codigo + "");
     }
+    public void Modificar(int idP, int anio, int duracion) {
+           cn.UID("UPDATE descripcionpelicula SET anio='" + anio + "' WHERE idP='" + idP + "'");
+    cn.UID("UPDATE descripcionpelicula SET duracion='" + duracion +  "' WHERE idP='" + idP + "'");
+    }
 }

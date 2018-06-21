@@ -177,6 +177,11 @@ public class FrmModificar extends javax.swing.JFrame {
         lblProductor.setText("Productor:");
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar cambios");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -400,7 +405,30 @@ public class FrmModificar extends javax.swing.JFrame {
             
         }
         else{
-        Bloquear();    
+            if(txtAño.getText().isEmpty()||txtDuracion.getText().isEmpty()||txtTitulo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
+            }
+            else{
+               Bloquear();
+        Pelicula a=new Pelicula();
+        Descripcionpelicula b= new Descripcionpelicula();
+        PeliculasXdirectores c =  new PeliculasXdirectores();
+        PeliculasXgenero d = new PeliculasXgenero();
+        PeliculasXproductores e = new PeliculasXproductores();
+        int anio= Integer.parseInt(txtAño.getText());
+        int duracion= Integer.parseInt(txtAño.getText());
+        int idGenero= cmbGenero.getSelectedIndex()+1;
+        int idD=cmbdirector.getSelectedIndex()+1;
+        int idPro=cmbProductor.getSelectedIndex()+1;
+        a.Modificar(id, txtTitulo.getText());
+        b.Modificar(id, anio, duracion);
+        c.Modificar(id, idD);
+        d.Modificar(id, idGenero);
+        e.Modificar(id, idPro);
+        Desbloquear();
+        Limpiar();
+            }
+        
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -417,6 +445,13 @@ public class FrmModificar extends javax.swing.JFrame {
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        frmPrincipal obj = new frmPrincipal();
+        obj.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
